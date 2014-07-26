@@ -15,6 +15,8 @@ run_analysis <- function(directory = "./UCI HAR Dataset"){
 
     ## merges 2 sets into one set
     data <- rbind(train, test)
+    
+    ## name each column of the data by features labels
     names(data) <- features[,2]
     
     ## check which column contains mean or std of the measurement
@@ -28,7 +30,7 @@ run_analysis <- function(directory = "./UCI HAR Dataset"){
     ## Extracts the mean and std for each measurement
     data <- data[,contain]
     
-    ## read the subject lables for the set
+    ## read the subject lables for the sets
     filename <- paste(directory, "/train/subject_train.txt", sep = "")
     train_sub <- read.table(filename)
     filename <- paste(directory, "/test/subject_test.txt", sep = "")
@@ -54,7 +56,7 @@ run_analysis <- function(directory = "./UCI HAR Dataset"){
     filename <- paste(directory, "/activity_labels.txt", sep = "")
     labels <- read.table(filename, colClasses = "character")
     
-    ## replace the labels with the names
+    ## replace the activity labels with the names
     for(i in 1:length(labels[,1])){
         Activity.Label <- apply(Activity.Label, 1, function(x) replace(x, x == labels[i,1], labels[i,2]))
         Activity.Label <- as.data.frame(Activity.Label)
@@ -62,7 +64,7 @@ run_analysis <- function(directory = "./UCI HAR Dataset"){
     
     ## combind with the label in the leftmost side of data
     data <- cbind(Activity.Label,data)
-    data <- arrange(data, data$Activity.Label, data$Subject)
+    data <- arrange(data, data$Activity.Label, data$Subject) ## sort the data in order of activity
     
     ## create a data frame to store the final tidy data
     table <- data.frame()
@@ -70,9 +72,9 @@ run_analysis <- function(directory = "./UCI HAR Dataset"){
     ## split the data according to the activity label
     data <- split(data, data$Activity.Label)
     
-    ## for each activity, find the mean of each variable and store in the data frame
+    ## for each activity, find the mean of each variable and store in a data frame
     for(i in 1:length(data)){
-        subdata <- split(data[[i]],data[[i]][[2]])
+        subdata <- split(data[[i]],data[[i]][[2]]) ## splite the data by the subject
         for(j in 1:length(subdata)){
             subsubdt <- as.data.frame(subdata[[j]])
             ave <- colMeans(subsubdt[,2:length(subsubdt[1,])])
@@ -81,5 +83,6 @@ run_analysis <- function(directory = "./UCI HAR Dataset"){
         } #end of inner for
     } #end of for
 
+     ## return the final tidy data set
      table
 }
