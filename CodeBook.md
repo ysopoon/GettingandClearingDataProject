@@ -2,10 +2,12 @@ This is the code book for the run_analysis.R script.
 This script will return a data frame with dimension 180*68. 
 
   Activity
+  
       The activites that the volunteer performed. 
       They are LAYING, SITTING, STANDING, WALKING, WALKING_DOWNSTAIRS, WALKING_UPSTAIRS 
         
   Subject
+  
       This idenfies the subject who performed the activity for each window sample. 
       Its range is from 1 to 30. 
   
@@ -22,7 +24,6 @@ Here is the information of the features from the original dataset:
     std(): Standard deviation
 
   tBodyAcc-mean()-X
-  
   tBodyAcc-mean()-Y
   
   tBodyAcc-mean()-Z
