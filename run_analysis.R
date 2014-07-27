@@ -9,13 +9,13 @@ run_analysis <- function(directory = "./UCI HAR Dataset"){
     filename <- paste(directory, "/test/X_test.txt", sep = "")
     test <- read.table(filename)
     
+    ## merges 2 sets into one set
+    data <- rbind(train, test)
+    
     ## read the lables of each column
     filename <- paste(directory, "/features.txt", sep = "")
     features <- read.table(filename)
 
-    ## merges 2 sets into one set
-    data <- rbind(train, test)
-    
     ## name each column of the data by features labels
     names(data) <- features[,2]
     
