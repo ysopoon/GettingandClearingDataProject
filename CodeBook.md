@@ -24,6 +24,7 @@ Here is the information of the features from the original dataset:
     std(): Standard deviation
 
   tBodyAcc-mean()-X
+  
   tBodyAcc-mean()-Y
   
   tBodyAcc-mean()-Z
